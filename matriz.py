@@ -4,6 +4,7 @@ from typing import List, Iterable
 
 List_Matriz = List[List[int]]
 
+
 class Matriz:
     def __init__(self, matriz: List_Matriz = None):
         self.matriz = matriz
@@ -20,24 +21,32 @@ class Matriz:
             soma = self.sum(self.matriz, other.matriz)
             return Matriz(soma)
         else:
-            raise TypeError("Não é possivel somar, por causa do tipo das matrizes diferentes")
+            raise TypeError(
+                "Não é possivel somar, por causa do tipo das matrizes diferentes"
+            )
 
     def __sub__(self, other) -> Matriz:
         if isinstance(other, Matriz):
             sub = self.subtract(self.matriz, other.matriz)
             return Matriz(sub)
         else:
-            raise TypeError("Não é possivel subtrair, por causa do tipo das matrizes diferentes")
+            raise TypeError(
+                "Não é possivel subtrair, por causa do tipo das matrizes diferentes"
+            )
 
     def __mul__(self, other) -> Matriz:
         if isinstance(other, Matriz):
             multi = self.multiply(self.matriz, other.matriz)
             return [Matriz(multi[0]), multi[1]]
         else:
-            raise TypeError("Não é possivel multiplicar, por causa do tipo das matrizes diferentes")
+            raise TypeError(
+                "Não é possivel multiplicar, por causa do tipo das matrizes diferentes"
+            )
 
     @classmethod
-    def create_matriz_generic(cls, rows: int, cols: int, name: str, show: bool = False):
+    def create_matriz_generic(
+        cls, rows: int, cols: int, name: str, show: bool = False
+    ):
         matriz = []
         for i in range(rows):
             matriz.append([])
@@ -47,7 +56,6 @@ class Matriz:
                 else:
                     matriz[i].append(f"{i+1}{j+1}")
         return cls(matriz)
-
 
     def show_matriz(self) -> str:
         txt = ""
@@ -75,13 +83,17 @@ class Matriz:
     def get_row(self, row: int) -> List_Matriz:
         return self.matriz[row - 1]
 
-    def check_to_multiply(self, matriz_x: List_Matriz, matriz_y: List_Matriz) -> bool:
+    def check_to_multiply(
+        self, matriz_x: List_Matriz, matriz_y: List_Matriz
+    ) -> bool:
         if len(matriz_x[0]) == len(matriz_y):
             return True
         else:
             return False
 
-    def check_to_sum(self, matriz_x: List_Matriz, matriz_y: List_Matriz) -> bool:
+    def check_to_sum(
+        self, matriz_x: List_Matriz, matriz_y: List_Matriz
+    ) -> bool:
         if self.get_order(matriz_x) == self.get_order(matriz_y):
             return True
         else:
@@ -96,7 +108,9 @@ class Matriz:
                     matriz_z[i].append(matriz_x[i][j] + matriz_y[i][j])
             return matriz_z
         else:
-            return "Não é possivel somar, por causa das ordens das matrizes diferentes"
+            return TypeError(
+                "Não é possivel somar, por causa das ordens das matrizes diferentes"
+            )
 
     def subtract(self, matriz_x: List_Matriz, matriz_y: List_Matriz) -> Matriz:
         if self.check_to_sum(matriz_x, matriz_y):
@@ -107,7 +121,7 @@ class Matriz:
                     matriz_z[i].append(matriz_x[i][j] - matriz_y[i][j])
             return matriz_z
         else:
-            return (
+            raise TypeError(
                 "Não é possivel subtrair, por causa das ordens das matrizes diferentes"
             )
 
@@ -131,7 +145,8 @@ class Matriz:
     def T(self):
         return self.get_matriz_transpose()
 
-    def multiply(self, matriz_x: List_Matriz, matriz_y: List_Matriz) -> Iterable[Matriz | str]:
+    def multiply(self, matriz_x: List_Matriz,
+                 matriz_y: List_Matriz) -> Iterable[Matriz | str]:
         if self.check_to_multiply(matriz_x, matriz_y):
             matriz_z = []
             txt = ""
