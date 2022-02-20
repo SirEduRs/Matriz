@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import List, TypeVar
 from random import randint
+from typing import List, TypeVar
 
 from tabulate import tabulate
 
 List_Matriz = List[List[int]]
 T = TypeVar('T', bound='Matriz')
+
 
 class Matriz:
     def __init__(self, matriz: List_Matriz = None) -> None:
@@ -27,9 +28,13 @@ class Matriz:
                         matriz_z[i].append(matriz[i][j] + other._matriz[i][j])
                 return Matriz(matriz=matriz_z)
             else:
-                raise TypeError("As matrizes não possuem a mesma ordem. Impossível somar.")
+                raise TypeError(
+                    "As matrizes não possuem a mesma ordem. Impossível somar."
+                )
         else:
-            raise TypeError(f"unsupported operand type(s) for +: 'Matriz' and '{other.__class__.__name__}'")
+            raise TypeError(
+                f"unsupported operand type(s) for +: 'Matriz' and '{other.__class__.__name__}'"
+            )
 
     def __sub__(self, other: T) -> Matriz:
         matriz = self._matriz
@@ -43,10 +48,13 @@ class Matriz:
                         matriz_z[i].append(matriz[i][j] - other._matriz[i][j])
                 return Matriz(matriz=matriz_z)
             else:
-                raise TypeError("As matrizes não possuem a mesma ordem. Impossível subtrair.")
+                raise TypeError(
+                    "As matrizes não possuem a mesma ordem. Impossível subtrair."
+                )
         else:
-            raise TypeError(f"unsupported operand type(s) for -: 'Matriz' and '{other.__class__.__name__}'")
-
+            raise TypeError(
+                f"unsupported operand type(s) for -: 'Matriz' and '{other.__class__.__name__}'"
+            )
 
     def __mul__(self, other: T) -> List[Matriz, str]:
         matriz = self._matriz
@@ -63,9 +71,13 @@ class Matriz:
                             matriz_z[i][j] += matriz[i][k] * other._matriz[k][j]
                 return [Matriz(matriz=matriz_z), txt]
             else:
-                raise TypeError(f"As matriz 1 tem {len(matriz[0])} colunas e a matriz 2 tem {len(other._matriz[0])} linhas. Impossível multiplicar.")
+                raise TypeError(
+                    f"As matriz 1 tem {len(matriz[0])} colunas e a matriz 2 tem {len(other._matriz[0])} linhas. Impossível multiplicar."
+                )
         else:
-            raise TypeError(f"unsupported operand type(s) for *: 'Matriz' and '{other.__class__.__name__}'")
+            raise TypeError(
+                f"unsupported operand type(s) for *: 'Matriz' and '{other.__class__.__name__}'"
+            )
 
     @classmethod
     def generate_random_matriz(cls, row: int, col: int) -> Matriz:
@@ -73,9 +85,8 @@ class Matriz:
         for i in range(row):
             matriz.append([])
             for j in range(col):
-                matriz[i].append(randint(-100,100))
+                matriz[i].append(randint(-100, 100))
         return cls(matriz=matriz)
-
 
     @staticmethod
     def get_order(matriz: List_Matriz) -> str:
