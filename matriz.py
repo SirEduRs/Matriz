@@ -98,22 +98,8 @@ class Matriz:
         return f"{len(matriz)} x {len(matriz[0])}"
 
     def show_matriz(self) -> str:
-        txt = ""
         matriz = self._matriz
         if matriz:
-            try:
-                len(matriz[0])
-            except TypeError as e:
-                if str(e) == "object of type 'int' has no len()":
-                    for i in range(len(matriz)):
-                        txt += f"{matriz[i]}\n"
-                    return txt
-                else:
-                    raise e
-            for i in range(len(matriz)):
-                for j in range(len(matriz[i])):
-                    txt += str(matriz[i][j]) + " "
-                txt += "\n"
             return tabulate(matriz, tablefmt="fancy_grid")
         else:
             raise TypeError("A matriz não foi definida.")
