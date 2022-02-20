@@ -22,6 +22,18 @@ class Matriz:
             f"rows={len(self._matriz)} columns={len(self._matriz[0])}>"
         )
 
+    def __neg__(self) -> Matriz:
+        matriz = self._matriz
+        matriz_z = []
+        if matriz:
+            for i in range(len(matriz)):
+                matriz_z.append([])
+                for j in range(len(matriz[i])):
+                    matriz_z[i].append(-matriz[i][j])
+            return Matriz(matriz=matriz_z)
+        else:
+            raise TypeError("A matriz não foi definida.")
+
     def __add__(self, other: T) -> Matriz:
         matriz = self._matriz
         matriz_z = []
