@@ -16,6 +16,12 @@ class Matriz:
     def __new__(self, matriz: List_Matriz = None) -> Matriz:
         return super().__new__(self)
 
+    def __repr__(self) -> str:
+        return (
+            f"<Matriz order={Matriz.get_order(self._matriz)} " \
+            f"rows={len(self._matriz)} columns={len(self._matriz[0])}>"
+        )
+
     def __add__(self, other: T) -> Matriz:
         matriz = self._matriz
         matriz_z = []
@@ -94,8 +100,8 @@ class Matriz:
             len(matriz[0])
         except TypeError as e:
             if str(e) == "object of type 'int' has no len()":
-                return f"{len(matriz)} x 1"
-        return f"{len(matriz)} x {len(matriz[0])}"
+                return f"{len(matriz)}X1"
+        return f"{len(matriz)}X{len(matriz[0])}"
 
     def show_matriz(self) -> str:
         matriz = self._matriz
