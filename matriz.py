@@ -118,7 +118,7 @@ class Matriz:
                 f"unsupported operand type(s) for -: 'Matriz' and '{other.__class__.__name__}'"
             )
 
-    def __mul__(self, other: T | int) -> List[Matriz, str]:
+    def __mul__(self, other: T | int) -> List[Matriz, str] | Matriz:
         """ Multiplica duas matrizes ou um número por uma matriz.
 
         Args:
@@ -126,6 +126,7 @@ class Matriz:
 
         Returns:
             Matriz: A matriz resultante da multiplicação.
+            str (Optional): Uma string contendo a formação da matriz resultante.
 
         Raises:
             TypeError: Se a outra 'Matriz' não for da classe 'Matriz' ou se o número não for inteiro.
@@ -155,7 +156,7 @@ class Matriz:
                 f"unsupported operand type(s) for *: 'Matriz' and '{other.__class__.__name__}'"
             )
 
-    def __rmul__(self, other: T | int) -> List[Matriz, str]:
+    def __rmul__(self, other: T | int) -> List[Matriz, str] | Matriz:
         return self.__mul__(other)
 
     @classmethod
