@@ -155,6 +155,9 @@ class Matriz:
                 f"unsupported operand type(s) for *: 'Matriz' and '{other.__class__.__name__}'"
             )
 
+    def __rmul__(self, other: T | int) -> List[Matriz, str]:
+        return self.__mul__(other)
+
     @classmethod
     def generate_random_matriz(cls, row: int, col: int) -> Matriz:
         """Gera uma matriz totalmente aleatória.
