@@ -1,3 +1,6 @@
+# Copyright © 2022 by Eduardo Rodrigues. All rights reserved.
+# Licensed under the GNU General Public License v3.0. See the LICENSE file.
+
 from __future__ import annotations
 
 from random import randint
