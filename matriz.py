@@ -11,6 +11,11 @@ T = TypeVar('T', bound='Matriz')
 
 class Matriz:
     def __init__(self, matriz: List_Matriz = None) -> None:
+        """Construtor da classe Matriz.
+        
+        Args:
+            matriz (List[List[int]], None): A matriz que será definida.
+        """
         self._matriz = matriz
 
     def __new__(self, matriz: List_Matriz = None) -> Matriz:
@@ -23,6 +28,18 @@ class Matriz:
         )
 
     def __neg__(self) -> Matriz:
+        """ Retorna a matriz com os elementos dentro dela negativos.
+
+        Note:
+            Caso haja elementos negativos na matriz original, os sinais deles serão trocados,
+            de acordo, com a regra dos sinais na matemática.
+
+        Returns:
+            Matriz: A matriz com os elementos negativos.
+
+        Raises:
+            TypeError: Se a matriz não foi definida.
+        """
         matriz = self._matriz
         matriz_z = []
         if matriz:
@@ -35,6 +52,18 @@ class Matriz:
             raise TypeError("A matriz não foi definida.")
 
     def __add__(self, other: T) -> Matriz:
+        """Soma duas matrizes.
+
+        Args:
+            other (Matriz): A matriz que será somada.
+
+        Returns:
+            Matriz: A matriz resultante da soma.
+
+        Raises:
+            TypeError: Se a outra 'Matriz' não for definida.
+            ValueError: Se as matrizes não possuírem a mesma ordem.
+        """
         matriz = self._matriz
         matriz_z = []
         get_order = Matriz.get_order
@@ -46,7 +75,7 @@ class Matriz:
                         matriz_z[i].append(matriz[i][j] + other._matriz[i][j])
                 return Matriz(matriz=matriz_z)
             else:
-                raise TypeError(
+                raise ValueError(
                     "As matrizes não possuem a mesma ordem. Impossível somar."
                 )
         else:
@@ -55,6 +84,18 @@ class Matriz:
             )
 
     def __sub__(self, other: T) -> Matriz:
+        """Subtrai duas matrizes.
+
+        Args:
+            other (Matriz): A matriz que será subtraída.
+
+        Returns:
+            Matriz: A matriz resultante da subtração.
+
+        Raises:
+            TypeError: Se a outra 'Matriz' não for definida.
+            ValueError: Se as matrizes não possuírem a mesma ordem.
+        """
         matriz = self._matriz
         matriz_z = []
         get_order = Matriz.get_order
@@ -66,7 +107,7 @@ class Matriz:
                         matriz_z[i].append(matriz[i][j] - other._matriz[i][j])
                 return Matriz(matriz=matriz_z)
             else:
-                raise TypeError(
+                raise ValueError(
                     "As matrizes não possuem a mesma ordem. Impossível subtrair."
                 )
         else:
@@ -74,7 +115,19 @@ class Matriz:
                 f"unsupported operand type(s) for -: 'Matriz' and '{other.__class__.__name__}'"
             )
 
-    def __mul__(self, other: T) -> List[Matriz, str]:
+    def __mul__(self, other: T | int) -> List[Matriz, str]:
+        """ Multiplica duas matrizes ou um número por uma matriz.
+
+        Args:
+            other (Matriz, int): A matriz ou um número que será multiplicado.
+
+        Returns:
+            Matriz: A matriz resultante da multiplicação.
+
+        Raises:
+            TypeError: Se a outra 'Matriz' não for da classe 'Matriz' ou se o número não for inteiro.
+            ValueError: Se o número de linhas da matriz 1 for diferente do número de colunas da matriz 2.
+        """
         matriz = self._matriz
         matriz_z = []
         if isinstance(other, Matriz):
@@ -89,9 +142,11 @@ class Matriz:
                             matriz_z[i][j] += matriz[i][k] * other._matriz[k][j]
                 return [Matriz(matriz=matriz_z), txt]
             else:
-                raise TypeError(
+                raise ValueError(
                     f"As matriz 1 tem {len(matriz[0])} colunas e a matriz 2 tem {len(other._matriz[0])} linhas. Impossível multiplicar."
                 )
+        elif isinstance(other, int):
+            return self.multiply_matriz(other)
         else:
             raise TypeError(
                 f"unsupported operand type(s) for *: 'Matriz' and '{other.__class__.__name__}'"
@@ -99,6 +154,15 @@ class Matriz:
 
     @classmethod
     def generate_random_matriz(cls, row: int, col: int) -> Matriz:
+        """Gera uma matriz totalmente aleatória.
+        
+        Args:
+            row (int): Número de linhas da matriz.
+            col (int): Número de colunas da matriz.
+
+        Returns:
+            Matriz: Uma matriz aleatória.
+        """
         matriz = []
         for i in range(row):
             matriz.append([])
@@ -116,6 +180,14 @@ class Matriz:
         return f"{len(matriz)}X{len(matriz[0])}"
 
     def show_matriz(self) -> str:
+        """ Retorna uma string contendo a matriz.
+
+        Returns:
+            str: Uma string contendo a matriz.
+
+        Raises:
+            TypeError: Se a matriz não for definida.
+        """
         matriz = self._matriz
         if matriz:
             return tabulate(matriz, tablefmt="fancy_grid")
@@ -123,6 +195,14 @@ class Matriz:
             raise TypeError("A matriz não foi definida.")
 
     def transpose(self) -> Matriz:
+        """Transpõe a matriz.
+        
+        Returns:
+            Matriz: A matriz transposta.
+
+        Raises:
+            TypeError: Se a matriz não for definida.
+        """
         matriz = self._matriz
         if matriz:
             try:
@@ -143,9 +223,21 @@ class Matriz:
 
     @property
     def T(self) -> Matriz:
+        """Matriz: A matriz transposta."""
         return self.transpose()
 
     def multiply_matriz(self, num: int) -> Matriz:
+        """Multiplica a mesma matriz por um determinado número.
+
+        Args:
+            num (int): O número que a matriz será multiplicada.
+        
+        Returns:
+            Matriz: A matriz resultante da multiplicação.
+
+        Raises:
+            TypeError: Se a matriz não for definida.
+        """
         matriz = self._matriz
         matriz_z = []
         if matriz:
