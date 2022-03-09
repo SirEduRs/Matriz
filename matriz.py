@@ -252,3 +252,27 @@ class Matriz:
             return Matriz(matriz=matriz_z)
         else:
             raise TypeError("A matriz não foi definida.")
+
+    def get_diagonal_main(self) -> List_Matriz:
+        """Retorna a diagonal principal da matriz.
+
+        Returns:
+            List[List[int]]: A diagonal principal da matriz.
+        """
+        matriz = self._matriz
+        diagonal = []
+        for i in range(len(matriz)):
+            diagonal.append(matriz[i][i])
+        return diagonal
+
+    def get_diagonal_secondary(self) -> List_Matriz:
+        """Retorna a diagonal secundária da matriz.
+
+        Returns:
+            List[List[int]]: A diagonal secundária da matriz.
+        """
+        matriz = self._matriz
+        diagonal = []
+        for i in range(len(matriz)):
+            diagonal.append(matriz[i][len(matriz) - i - 1])
+        return diagonal
